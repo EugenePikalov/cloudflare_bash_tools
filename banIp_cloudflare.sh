@@ -6,6 +6,8 @@ Key=""
 Email=""
 badIPList="./badIPList"
 mode="challenge" # challenge, block, js_challenge
+note="ddos`date +"%Y%m%d"`"
+
 
 # cat /var/log/nginx/access.log | grep "01/Nov/2019:20:15" | grep "\"-\" \"-\"" | awk '{ print $1}' | sort| uniq > badIPList
 
@@ -16,6 +18,6 @@ while read host; do
     -H "X-Auth-Key:$Key" \
     -H "X-Auth-Email:$Email" \
     -H "Content-Type:application/json" \
-    --data "{\"mode\":\"$mode\",\"configuration\":{\"target\":\"ip\",\"value\":\"${hostparts[0]}\"},\"notes\":\"ddos2\"}"
+    --data "{\"mode\":\"$mode\",\"configuration\":{\"target\":\"ip\",\"value\":\"${hostparts[0]}\"},\"notes\":\"$note\"}"
 done < $badIPList
 
